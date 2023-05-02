@@ -1,19 +1,14 @@
 const mongo = require('mongoose')
+const User = require("./User")
+const Post = require("./Post")
 
 mongo.connect("mongodb://localhost/appdb")
 
-const postSchema = new mongo.Schema({
-    start_date: Date,
-    end_date: Date,
-    price: Number,
-    description: String,
-    img_urls: [String],
-})
-
-const userSchema = new mongo.Schema({
-    nick_name: String,
-    user_name: String,
-    password: String,
-    posts: [mongo.SchemaTypes.ObjectId],
-    info: String,
-})
+export const addUser = async (nick_name, user_name, password, nick_name, info) => {
+    const user = await User.create({
+        nick_name: nick_name,
+        user_name: user_name,
+        password: password,
+        info: info,
+    })
+}
