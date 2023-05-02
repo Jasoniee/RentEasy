@@ -9,4 +9,4 @@ const postSchema = new mongo.Schema({
     email: {type: String, required: true, lowercase: true},
 })
 
-module.exports = mongo.module("Post", postSchema)
+module.exports = mongo.model("Post", postSchema)

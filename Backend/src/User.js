@@ -8,4 +8,4 @@ const userSchema = new mongo.Schema({
     info: String,
 })
 
-module.exports = mongo.module("User", userSchema)
+module.exports = mongo.model("User", userSchema)

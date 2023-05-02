@@ -4,11 +4,29 @@ const Post = require("./Post")
 
 mongo.connect("mongodb://localhost/appdb")
 
-export const addUser = async (nick_name, user_name, password, nick_name, info) => {
-    const user = await User.create({
-        nick_name: nick_name,
-        user_name: user_name,
-        password: password,
-        info: info,
-    })
+const addUser = async (nick_name, user_name, password, info) => {
+    try {
+        const user = await User.create({
+            nick_name: nick_name,
+            user_name: user_name,
+            password: password,
+            info: info,
+            }
+        )
+    } catch(e) {
+            console.log(e.message)
+        }
+}
+
+addUser('Zztk', "zztk", "12345")
+
+async function run () {
+    const x = await User.find()
+    console.log(x)
+}
+
+run()
+
+module.exports = {
+    addUser,
 }
