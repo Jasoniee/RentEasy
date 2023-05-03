@@ -4,15 +4,7 @@ const Post = require("./Post")
 
 mongo.connect("mongodb://localhost/appdb")
 
-const addUser = async (nick_name, user_name, password, info) => {
-    const user = await User.create({
-        nick_name: nick_name,
-        user_name: user_name,
-        password: password,
-        info: info,
-    })
-    return user
-}
+
 const addPost=async(start_date, end_date, price, description,email)=>{
     const post = await Post.create({
         start_date:start_date,
