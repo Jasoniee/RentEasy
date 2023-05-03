@@ -35,20 +35,24 @@ const addUser = async (nick_name, user_name, password, info) => {
     }
 }
 
+// yh792
 const getPostById = async() => {
 
 }
 
+// qny2
 const getUserByUserNameAndPassword = async() => {
 
 }
 
+// yh792
 const getPostByLocation = async() => {
 
 }
 
+// tz275
 const deletePost = async() => {
-    
+
 }
 
 module.exports = {
