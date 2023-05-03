@@ -30,6 +30,7 @@ const addUser = async (nick_name, user_name, password, info) => {
             info: info,
             }
         )
+        return user
     } catch(e) {
             console.log(e.message)
     }
@@ -51,9 +52,19 @@ const getPostByLocation = async() => {
 }
 
 // tz275
-const deletePost = async() => {
-
+const deletePost = async(id) => {
+    await User.deleteOne({_id: id})
 }
+
+// test function
+async function testFunction() {
+    console.log(addUser('Zztk', 'xxx', '12345', 'hi'))
+    console.log(await User.find())
+    await User.deleteMany({nick_name: 'Zztk'})
+    console.log("\n" + await User.find() + "Finished")
+}
+
+testFunction()
 
 module.exports = {
     addUser,
