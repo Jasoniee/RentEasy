@@ -15,17 +15,8 @@ const addUser = async (nick_name, user_name, password, info) => {
         )
     } catch(e) {
             console.log(e.message)
-        }
+    }
 }
-
-addUser('Zztk', "zztk", "12345")
-
-async function run () {
-    const x = await User.find()
-    console.log(x)
-}
-
-run()
 
 module.exports = {
     addUser,
