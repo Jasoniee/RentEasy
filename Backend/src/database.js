@@ -36,9 +36,18 @@ const addUser = async (nick_name, user_name, password, info) => {
     }
 }
 
-// yh792
-const getPostById = async() => {
 
+// yh792
+const getPostById = async(post_id) => {
+    try{
+        const post = await Post.findById(post_id)
+        console.log(post)
+
+        return post
+    }
+    catch(e){
+        console.log(e.message)
+    }
 }
 
 // qny2
