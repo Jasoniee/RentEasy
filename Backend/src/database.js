@@ -47,13 +47,23 @@ const getUserByUserNameAndPassword = async() => {
 }
 
 // yh792
-const getPostByLocation = async() => {
-
+const getPostByLocation = async(city) => {
+    try{
+        const post = await Post.find({location:city})
+        return post
+    }
+    catch(e){
+        console.log(e.message)
+    }
 }
 
 // tz275
 const deletePost = async(id) => {
-    await User.deleteOne({_id: id})
+    try {
+        await User.deleteOne({_id: id})
+    } catch (e) {
+        console.log(e.message)
+    }
 }
 
 // test function
