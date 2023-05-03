@@ -18,7 +18,7 @@ const addUser = async (nick_name, user_name, password, info) => {
     }
 }
 
-const addPost = () => {
+const addPost = async () => {
 
 }
 
