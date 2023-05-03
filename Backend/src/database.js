@@ -1,3 +1,5 @@
+// npm run devStart
+
 const mongo = require('mongoose')
 const User = require("./User")
 const Post = require("./Post")
@@ -33,6 +35,21 @@ const addUser = async (nick_name, user_name, password, info) => {
     }
 }
 
+const getPostById = async() => {
+
+}
+
+const getUserByUserNameAndPassword = async() => {
+
+}
+
+const getPostByLocation = async() => {
+
+}
+
+const deletePost = async() => {
+    
+}
 
 module.exports = {
     addUser,

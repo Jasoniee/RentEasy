@@ -7,10 +7,11 @@ const postSchema = new mongo.Schema({
     description: String,
     img_urls: [String],
     email: {type: String, required: true, lowercase: true},
-    city:{type:String, required:true,lowercase:true},
-    state:String,
-    zipCode: Number
-    
+    location: {
+        city:{type:String, required:true,lowercase:true},
+        state:String,
+        zipCode: Number
+    }
 })
 
 module.exports = mongo.model("Post", postSchema)
