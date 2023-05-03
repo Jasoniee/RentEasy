@@ -35,9 +35,18 @@ const addUser = async (nick_name, user_name, password, info) => {
     }
 }
 
-// yh792
-const getPostById = async() => {
 
+// yh792
+const getPostById = async(post_id) => {
+    try{
+        const post = await Post.findById(post_id)
+        console.log(post)
+
+        return post
+    }
+    catch(e){
+        console.log(e.message)
+    }
 }
 
 // qny2
@@ -46,8 +55,14 @@ const getUserByUserNameAndPassword = async() => {
 }
 
 // yh792
-const getPostByLocation = async() => {
-
+const getPostByLocation = async(city) => {
+    try{
+        const post = await Post.find({location:city})
+        return post
+    }
+    catch(e){
+        console.log(e.message)
+    }
 }
 
 // tz275
