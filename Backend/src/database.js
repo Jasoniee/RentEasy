@@ -51,8 +51,14 @@ const getPostById = async(post_id) => {
 }
 
 // qny2
-const getUserByUserNameAndPassword = async() => {
-
+const getUserByUserNameAndPassword = async(username,password) => {
+    try{
+        const user = await User.find({username:username, password:password})
+        return user
+    }
+    catch(e){
+        console.log(e.message)
+    }
 }
 
 // yh792
