@@ -1,10 +1,12 @@
-import express from "express";
-import morgan from "morgan";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import cookieSession from "cookie-session";
-import bodyParser from "body-parser";
-import * as db from "./database.js";
+// import express from "express";
+const express = require("express");
+const morgan = require("morgan")
+const cors = require("cors")
+const cookieParser = require("cookie-parser")
+const cookieSession = require("cookie-session")
+const bodyParser = require("body-parser")
+const database = require("./database.js")
+const mongo = require("mongoose")
 
 const app = express();
 app.use(
@@ -24,30 +26,45 @@ app.use(
     extended: true,
   })
 );
-const mongo = require('mongoose')
-const User = require("./User")
-const Post = require("./Post")
-const database = require('./database.js')
 
 mongo.connect("mongodb://localhost/appdb")
-app.post("/api/SignUp", (req, res) => {
-    const existUser = database.getUserbyUserName(req.body.user_name)
+app.post("/api/signup", async (req, res) => {
+    const existUser = await database.getUserbyUserName(req.body.user_name)
     if (existUser){
-        res.status(400).send("Your Username already exists");
+        res.status(400).send("The use name that you have entered has already exist");
     }else{
         const user = database.addUser(req.body.nick_name,req.body.user_name,req.body.password,req.body.info)
         res.status(200).send("Sucessfully sign up!")
     }
 });
-app.post('./api/login',(req,res)=>{
-    const user = database.getUserByUserNameAndPassword(req.body.user_name,req.body.password)
-    if (user){
+
+app.post('/api/login', async (req,res)=>{
+    const user = await database.getUserByUserNameAndPassword(req.body.user_name,req.body.password)
+    if (user.length > 0){
         req.session.user_name=req.body.user_name
         res.status(200).send(user)
-
     }else{
-        res.status(400).send("At least one of your information is incorrect")
+        res.status(400).send("At least one of the information that you have entered is incorrect")
     }
 });
 
-app.post('./api/post')
+// 发布个人post
+app.post('/api/:user_name/post')
+
+// 个人界面的所有posts
+app.get('/api/:user_name/posts')
+
+// login 直接看到
+app.get('/api/posts')
+
+// 查看自己信息
+app.get('/api/:user_name')
+
+// 删除指定post
+app.delete('/api/:user_name/:')
+
+
+
+
+
+module.exports = app;

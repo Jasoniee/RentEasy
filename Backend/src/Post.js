@@ -1,6 +1,7 @@
 const mongo = require('mongoose')
 
 const postSchema = new mongo.Schema({
+    user_name: {type: String, required: true},
     start_date: {type: Date, required: true},
     end_date: {type: Date, required: true},
     price: {type: Number, required: true},

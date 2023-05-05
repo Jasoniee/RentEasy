@@ -7,8 +7,9 @@ const Post = require("./Post")
 mongo.connect("mongodb://localhost/appdb")
 //mongo.connect()
 
-const addPost = async(start_date, end_date, price, description,email,city,state,zipCode)=>{
+const addPost = async(user_name, start_date, end_date, price, description, email, city, state, zipCode)=>{
     const post = await Post.create({
+        user_name: user_name,
         start_date:start_date,
         end_date: end_date,
         price:price,
@@ -42,11 +43,9 @@ const addUser = async (nick_name, user_name, password, info) => {
 
 
 // yh792
-const getPostById = async(post_id) => {
+const getPostsByUserName = async(user_name) => {
     try{
-        const post = await Post.findById(post_id)
-        console.log(post)
-
+        const post = await Post.find({user_name: user_name})
         return post
     }
     catch(e){
@@ -55,18 +54,19 @@ const getPostById = async(post_id) => {
 }
 
 // qny2
-const getUserByUserNameAndPassword = async(username,password) => {
+const getUserByUserNameAndPassword = async(_username,_password) => {
     try{
-        const user = await User.find({user_name:username, password:password})
+        const user = await User.findOne({user_name:_username, password:_password})
         return user
     }
     catch(e){
         console.log(e.message)
     }
 }
+
 const getUserbyUserName=async(username)=>{
     try{
-        const user =  await User.find({user_name:username})
+        const user =  await User.findOne({user_name:username})
         return user
     }
     catch(e){
@@ -97,28 +97,21 @@ const deletePost = async(id) => {
 
 // test function
 async function testFunction() {
-    console.log(addUser('Zztk', 'xxx', '12345', 'hi'))
-    //console.log("hi")
-    console.log(addPost(new Date('2023-05-10'), new Date('2023-05-20'), 100, 'This is a sample post', 'example@example.com', 'San Francisco', 'California', 12345))
-    //console.log(await Post.find())
-    //console.log('ok')
-    console.log(await getPostByLocation('San Francisco'))
-    //console.log(User)
-    //console.log(await User.find())
-    //console.log(await Post.find())
-    await User.deleteMany({nick_name: 'Zztk'})
-    await Post.deleteMany({'location.city': 'San Francisco'})
-    console.log("\n" + await User.find() + "Finished")
-    console.log("\n" + await Post.find() + "Finished")
+    console.log(addUser('nickname', 'username', 'password', 'info'))
+    console.log(await User.find())
+    console.log(await getUserByUserNameAndPassword("username", "password"))
+    await User.deleteMany({nick_name: 'nickname'})
+    console.log("\n" + "Finished")
+
 }
 
-//testFunction()
+// testFunction()
 
 
 module.exports = {
     addUser,
     addPost,
-    getPostById,
+    getPostsByUserName,
     getUserByUserNameAndPassword,
     getUserbyUserName,
     getPostByLocation,
