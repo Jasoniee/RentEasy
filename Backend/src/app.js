@@ -40,7 +40,7 @@ app.post("/api/signup", async (req, res) => {
 
 app.post('/api/login', async (req,res)=>{
     const user = await database.getUserByUserNameAndPassword(req.body.user_name,req.body.password)
-    if (user.length > 0){
+    if (user.length){
         req.session.user_name=req.body.user_name
         res.status(200).send(user)
     }else{
