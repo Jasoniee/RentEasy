@@ -52,7 +52,16 @@ app.post('/api/login', async (req,res)=>{
 app.post('/api/:user_name/post')
 
 // 个人界面的所有posts
-app.get('/api/:user_name/posts')
+app.get('/api/:user_name/posts', async (req, res) => {
+  const user = await database.getUserByUserName(req.params.user_name)
+  if (user) {
+    const posts = await database.getPostsByUserName(user.user_name)
+    res.status(200).send("success")
+    return posts
+  } else {
+    res.status(400).send("The user have no posts yet")
+  }
+})
 
 // login 直接看到
 app.get('/api/posts')
