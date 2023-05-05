@@ -57,7 +57,7 @@ const getPostById = async(post_id) => {
 // qny2
 const getUserByUserNameAndPassword = async(username,password) => {
     try{
-        const user = await User.find({username:username, password:password})
+        const user = await User.find({user_name:username, password:password})
         return user
     }
     catch(e){
@@ -66,7 +66,7 @@ const getUserByUserNameAndPassword = async(username,password) => {
 }
 const getUserbyUserName=async(username)=>{
     try{
-        const user =  await User.find({username:username})
+        const user =  await User.find({user_name:username})
         return user
     }
     catch(e){

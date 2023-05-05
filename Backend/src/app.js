@@ -31,18 +31,18 @@ const database = require('./database.js')
 
 mongo.connect("mongodb://localhost/appdb")
 app.post("/api/SignUp", (req, res) => {
-    const existUser = database.getUserbyUserName(req.body.username)
+    const existUser = database.getUserbyUserName(req.body.user_name)
     if (existUser){
         res.status(400).send("Your Username already exists");
     }else{
-        const user = database.addUser(req.body.nickname,req.body.username,req.body.password,req.body.info)
+        const user = database.addUser(req.body.nick_name,req.body.user_name,req.body.password,req.body.info)
         res.status(200).send("Sucessfully sign up!")
     }
 });
 app.post('./api/login',(req,res)=>{
-    const user = database.getUserByUserNameAndPassword(req.body.username,req.body.password)
+    const user = database.getUserByUserNameAndPassword(req.body.user_name,req.body.password)
     if (user){
-        req.session.username=req.body.username
+        req.session.user_name=req.body.user_name
         res.status(200).send(user)
 
     }else{
