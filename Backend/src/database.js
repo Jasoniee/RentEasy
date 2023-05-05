@@ -64,6 +64,15 @@ const getUserByUserNameAndPassword = async(username,password) => {
         console.log(e.message)
     }
 }
+const getUserbyUserName=async(username)=>{
+    try{
+        const user =  await User.find({username:username})
+        return user
+    }
+    catch(e){
+        console.log(e.message)
+    }
+}
 
 // yh792
 const getPostByLocation = async(city) => {
@@ -103,9 +112,17 @@ async function testFunction() {
     console.log("\n" + await Post.find() + "Finished")
 }
 
-testFunction()
+//testFunction()
+
 
 module.exports = {
     addUser,
-    addPost
+    addPost,
+    getPostById,
+    getUserByUserNameAndPassword,
+    getUserbyUserName,
+    getPostByLocation,
+    deletePost,
+
+
 }
