@@ -60,7 +60,15 @@ app.post('/api/:user_name/post',async (req,res)=>{
 // 个人界面的所有posts
 app.get('/api/:user_name/posts')
 // login 直接看到
-app.get('/api/posts')
+
+app.get('/api/posts', async (req,res)=>{
+    const posts = await database.getPostByLocation(req.body.city)
+    if (posts.length > 0){
+        res.status(200).send(posts)
+    }else{
+        res.status(400).send("No post found")
+    }
+});
 
 // 查看自己信息
 app.get('/api/:user_name',async(req,res)=>{
