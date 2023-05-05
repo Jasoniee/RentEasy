@@ -5,7 +5,7 @@ const User = require("./User")
 const Post = require("./Post")
 
 mongo.connect("mongodb://localhost/appdb")
-
+//mongo.connect()
 
 const addPost = async(start_date, end_date, price, description,email,city,state,zipCode)=>{
     const post = await Post.create({
@@ -14,11 +14,15 @@ const addPost = async(start_date, end_date, price, description,email,city,state,
         price:price,
         description:description,
         email:email,
-        city:city,
-        state:state,
-        zipCode:zipCode
+        location: {
+            city: city,
+            state: state,
+            zipCode: zipCode,
+          },
 
-    })}
+    })
+    return post
+}
 
 
 const addUser = async (nick_name, user_name, password, info) => {
@@ -64,7 +68,8 @@ const getUserByUserNameAndPassword = async(username,password) => {
 // yh792
 const getPostByLocation = async(city) => {
     try{
-        const post = await Post.find({location:city})
+        const post = await Post.find({'location.city': city})
+        //console.log(post)
         return post
     }
     catch(e){
@@ -84,9 +89,18 @@ const deletePost = async(id) => {
 // test function
 async function testFunction() {
     console.log(addUser('Zztk', 'xxx', '12345', 'hi'))
-    console.log(await User.find())
+    //console.log("hi")
+    console.log(addPost(new Date('2023-05-10'), new Date('2023-05-20'), 100, 'This is a sample post', 'example@example.com', 'San Francisco', 'California', 12345))
+    //console.log(await Post.find())
+    //console.log('ok')
+    console.log(await getPostByLocation('San Francisco'))
+    //console.log(User)
+    //console.log(await User.find())
+    //console.log(await Post.find())
     await User.deleteMany({nick_name: 'Zztk'})
+    await Post.deleteMany({'location.city': 'San Francisco'})
     console.log("\n" + await User.find() + "Finished")
+    console.log("\n" + await Post.find() + "Finished")
 }
 
 testFunction()
