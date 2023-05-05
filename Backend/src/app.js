@@ -49,16 +49,28 @@ app.post('/api/login', async (req,res)=>{
 });
 
 // 发布个人post
-app.post('/api/:user_name/post')
+app.post('/api/:user_name/post',async (req,res)=>{
+    const posts = await database.addPost(req.params.user_name, req.body.start_date, req.body.end_date, req.body.price, req.body.description, req.body.email, req.body.city, req.body.state, req.body.zipCode)
+    if (posts){
+        res.status(200).send('Successfully posted')    }else{
+            res.status(400).send('Please enter required information')
+        }
+});
 
 // 个人界面的所有posts
 app.get('/api/:user_name/posts')
-
 // login 直接看到
 app.get('/api/posts')
 
 // 查看自己信息
-app.get('/api/:user_name')
+app.get('/api/:user_name',async(req,res)=>{
+    const user= await database.getUserbyUserName(req.params.user_name)
+    if(user){
+        res.status(200).send(user)
+    }else{
+        res.status(400).send('something went wrong')
+    }
+});
 
 // 删除指定post
 app.delete('/api/:user_name/:')
