@@ -58,8 +58,14 @@ const PostsPage = props => {
       {posts.map(post => (
         <div key={post._id}>
           <h2>{post.user_name}</h2>
+          <p>{post.start_date}</p>
+          <p>{post.end_date}</p>
+          <p>{post.price}</p>
           <p>{post.description}</p>
-          {/* Add more fields here */}
+          <p>{post.email}</p>
+          <p>{post.location.city}</p>
+          <p>{post.location.state}</p>
+          <p>{post.location.zipCode}</p>
         </div>
       ))}
     </div>
@@ -67,7 +73,7 @@ const PostsPage = props => {
         <form onSubmit={handleSubmit} >
          
           <label className="label" htmlFor="city">
-            Show me the city you want
+            Enter the city you are interested
           </label>
           <input name = "city" className='input' />
           <div><input type="submit" className='button is-primary'/></div>
