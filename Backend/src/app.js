@@ -111,14 +111,11 @@ app.delete('/api/:user_name/:', async(req, res) => {
   
 })
 
-// 2 tests
+// 1 test
 app.get('/api/getAllUsers', async(req, res) => {
   res.status(200).send(await database.getAllUsers())
 })
 
-app.get('/api/getAllPosts', async(req, res) => {
-  res.status(200).send(await database.getAllPosts())
-})
 
 
 module.exports = app;
