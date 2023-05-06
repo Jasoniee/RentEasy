@@ -1,18 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-
-/**
- * CS-5356-TODO
- * Show classes on the User Home Page
- *
- * When this component loads for the first time,
- * load the users classes with a GET /api/classes.
- * Save it to the component state.
- *
- * Users can create new class codes, and classes from this page.
- * When a class code is generated or a new class is created,
- * reload and display the updated list of the user's classes.
- */
 const UserHomePage = (props) => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
@@ -25,6 +12,27 @@ const UserHomePage = (props) => {
       }
     })
   }, []);
+  const handleClick = e => {
+    e.preventDefault();
+    fetch(`/api/${props.user_name.toString()}`,{
+      method:'DELETE',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({city: e.target.city.value})
+    }).then(response =>{
+      if(response.ok){
+        response.json().then(data=>{
+          console.log(data)
+          setPosts(data)
+          //window.location.reload(false);
+          //navigate('/posts', {replace: true})
+        })
+      }else{
+        console.log('sign up wrong')
+      }
+    })
+  };
 
   return (
     <>
@@ -49,6 +57,7 @@ const UserHomePage = (props) => {
         <p><strong>City:</strong> {post.location.city}</p >
         <p><strong>State:</strong> {post.location.state}</p >
         <p><strong>Zip Code:</strong> {post.location.zipCode}</p >
+        <button onClick={handleClick}className="button"> Delete this post</button>
       </div>
     ))}
   </div>

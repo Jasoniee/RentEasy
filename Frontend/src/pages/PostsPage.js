@@ -19,16 +19,6 @@ const PostsPage = props => {
   
   const handleSubmit = e => {
     e.preventDefault();
-    /**
-     * CS-5356-TODO
-     *
-     * Log the user in. Grab the value from the username input element
-     * and send it in an object to POST /api/login
-     *
-     * When it responds with a 200 OK, call `props.onLogin()` to have App
-     * update your sign-in status, and then call `navigate('/instructor-home')`
-     * to go to the /instructor-home page
-     */
     fetch('/api/posts',{
       method:'POST',
       headers:{
@@ -44,7 +34,7 @@ const PostsPage = props => {
           //navigate('/posts', {replace: true})
         })
       }else{
-        console.log('sign up wrong')
+        console.log('wrong location')
       }
     })
   };
