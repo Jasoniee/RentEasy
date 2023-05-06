@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = props => {
   return (
-    <nav className="navbar" style={{ paddingTop: "5px" }}>
+    <nav className="navbar" class="navbar is-fixed-top" style={{ paddingTop: "5px" }}>
       <div
         className="container"
         style={{ paddingLeft: "32px", paddingRight: "32px" }}
@@ -35,7 +35,7 @@ const NavBar = props => {
             <div className="navbar-end">
               <Link to="/instructor-home" className="navbar-item">
                 <i className="material-icons">person_outline</i>
-                <div>{props.username}</div>
+                <div>{props.user_name}</div>
               </Link>
               <a className="button mt" href="/logout">
                 Logout

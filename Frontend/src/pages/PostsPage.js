@@ -1,5 +1,5 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 /**
  *
@@ -12,9 +12,19 @@ import { useNavigate } from "react-router-dom";
  * click Submit, at which point, we log the user in and
  * redirect them
  */
-const LoginPage = props => {
+const PostsPage = props => {
   const navigate = useNavigate();
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
 
+    fetch('/api/posts').then(response =>{
+      if (response.ok){
+        response.json().then(data=>{
+          setPosts(data.posts)
+        })
+      }
+    })
+  }, []);
   const handleSubmit = e => {
     e.preventDefault();
     /**
@@ -27,39 +37,29 @@ const LoginPage = props => {
      * update your sign-in status, and then call `navigate('/instructor-home')`
      * to go to the /instructor-home page
      */
-    fetch('/api/login',{
+    fetch('/api/posts',{
       method:'POST',
       headers:{
         'Content-Type': 'application/json'
       },
-      body:JSON.stringify({user_name: e.target.user_name.value,password:e.target.password.value})
+      body:JSON.stringify({city: e.target.city.value})
     }).then(response =>{
       if(response.ok){
-        console.log('successfully login')
-        props.onLogin()
-        navigate('/posts', {replace: true});
+        navigate('/login', {replace: true});
       }else{
-        console.log('Login wrong')
+        console.log('sign up wrong')
       }
     })
   };
   return (
     <section className="hero">
-      <div className="container hero-body">
-        <h1 className="title">Login</h1>
-        <form onSubmit={handleSubmit}>
-          <label className="label" htmlFor="user_name">
-            Username
+      <div  class="container is-max-desktop" style={{marginTop: '3rem'}}>
+        <form onSubmit={handleSubmit} >
+         
+          <label className="label" htmlFor="city">
+            Show me the city you want
           </label>
-          <input name = "user_name" className='input' />
-
-          {/* Add an input for the username */}
-          <label className="label" htmlFor="password">
-            Password
-          </label>
-          <input name = "password" className='input' />
-
-          <div>Anonymous access while in prototype mode</div>
+          <input name = "city" className='input' />
           <div><input type="submit" className='button is-primary'/></div>
         </form>
       </div>
@@ -67,4 +67,4 @@ const LoginPage = props => {
   );
 };
 
-export default LoginPage;
+export default PostsPage;

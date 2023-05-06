@@ -13,6 +13,7 @@ import LoginPage from "./pages/LoginPage";
 //import ClassSessionPage from "./pages/ClassSessionPage";
 import Navbar from "./components/Navbar";
 import SignupPage from "./pages/SignupPage";
+import PostsPage from "./pages/PostsPage";
 
 /**
  * CS-5356-TODO
@@ -57,6 +58,7 @@ const App = () => {
 
   return (
     <div>
+        
       <Router>
         <Navbar isSignedIn={isSignedIn} username={user?.userId ?? null} />
         <Routes>
@@ -72,6 +74,16 @@ const App = () => {
             path="/login"
             element={
               <LoginPage
+                onLogin={() => {
+                  setIsSignedIn(true);
+                }}
+              />
+            }
+          />
+          <Route
+            path="/posts"
+            element={
+              <PostsPage
                 onLogin={() => {
                   setIsSignedIn(true);
                 }}
