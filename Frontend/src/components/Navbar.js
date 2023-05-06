@@ -33,7 +33,7 @@ const NavBar = props => {
         {props.isSignedIn && (
           <div id="navbarMenu" className="navbar-menu">
             <div className="navbar-end">
-              <Link to="/instructor-home" className="navbar-item">
+              <Link to="/userHome" className="navbar-item">
                 <i className="material-icons">person_outline</i>
                 <div>{props.user_name}</div>
               </Link>

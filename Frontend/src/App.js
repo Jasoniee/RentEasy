@@ -14,6 +14,8 @@ import LoginPage from "./pages/LoginPage";
 import Navbar from "./components/Navbar";
 import SignupPage from "./pages/SignupPage";
 import PostsPage from "./pages/PostsPage";
+import AddPostPage from "./pages/AddPostPage";
+import UserHomePage from "./pages/UserHomePage";
 
 /**
  * CS-5356-TODO
@@ -65,6 +67,14 @@ const App = () => {
         <Route
             path="/signup"
             element={(<SignupPage />)}
+          />
+          <Route
+            path="/addPost"
+            element={(<AddPostPage user_name={user} />)}
+          />
+           <Route
+            path="/userHome"
+            element={(<UserHomePage user_name={user} />)}
           />
           {/*<Route
             path="/instructor-home"
