@@ -65,6 +65,12 @@ app.get('/api/:user_name/posts', async (req, res) => {
   res.status(200).send(posts)
 })
 
+// logout 
+app.get("/api/logout", (req, res) => {
+  req.session = null;
+  res.status(200).send();
+});
+
 
 // return all the posts by location
 app.get('/api/posts', async (req,res)=>{
