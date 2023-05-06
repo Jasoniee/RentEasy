@@ -52,8 +52,18 @@ const PostsPage = props => {
     })
   };
   return (
+    
     <section className="hero">
-      <div  class="container is-max-desktop" style={{marginTop: '3rem'}}>
+          <div>
+      {posts.map(post => (
+        <div key={post._id}>
+          <h2>{post.user_name}</h2>
+          <p>{post.description}</p>
+          {/* Add more fields here */}
+        </div>
+      ))}
+    </div>
+      <div class="container is-max-desktop" style={{marginTop: '3rem'}}>
         <form onSubmit={handleSubmit} >
          
           <label className="label" htmlFor="city">
