@@ -40,7 +40,7 @@ app.post("/api/signup", async (req, res) => {
 
 app.post('/api/login', async (req,res)=>{
     const user = await database.getUserByUserNameAndPassword(req.body.user_name,req.body.password)
-    if (user.length > 0){
+    if (user.length){
         req.session.user_name=req.body.user_name
         res.status(200).send(user)
     }else{
@@ -49,7 +49,13 @@ app.post('/api/login', async (req,res)=>{
 });
 
 // 发布个人post
-app.post('/api/:user_name/post')
+app.post('/api/:user_name/post',async (req,res)=>{
+    const posts = await database.addPost(req.params.user_name, req.body.start_date, req.body.end_date, req.body.price, req.body.description, req.body.email, req.body.city, req.body.state, req.body.zipCode)
+    if (posts){
+        res.status(200).send('Successfully posted')    }else{
+            res.status(400).send('Please enter required information')
+        }
+});
 
 // 个人界面的所有posts
 app.get('/api/:user_name/posts', async (req, res) => {
@@ -63,11 +69,26 @@ app.get('/api/:user_name/posts', async (req, res) => {
   }
 })
 
+
 // login 直接看到
-app.get('/api/posts')
+app.get('/api/posts', async (req,res)=>{
+    const posts = await database.getPostByLocation(req.body.city)
+    if (posts.length > 0){
+        res.status(200).send(posts)
+    }else{
+        res.status(400).send("No post found")
+    }
+});
 
 // 查看自己信息
-app.get('/api/:user_name')
+app.get('/api/:user_name',async(req,res)=>{
+    const user= await database.getUserbyUserName(req.params.user_name)
+    if(user){
+        res.status(200).send(user)
+    }else{
+        res.status(400).send('something went wrong')
+    }
+});
 
 // 删除指定post
 app.delete('/api/:user_name/:')
