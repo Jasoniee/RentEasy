@@ -4,7 +4,7 @@ const mongo = require('mongoose')
 const User = require("./User")
 const Post = require("./Post")
 
-mongo.connect("mongodb://localhost/appdb")
+mongo.connect("mongodb+srv://yangqingyun:yangqingyun@cluster0.jfjwpvr.mongodb.net/?retryWrites=true&w=majority")
 //mongo.connect()
 
 const addPost = async(user_name, start_date, end_date, price, description, email, city, state, zipCode)=>{
@@ -116,17 +116,18 @@ const deleteAllPost = async() => {
 // test function
 
 async function testFunction() {
-    addUser('nickname', 'username', 'password', 'info')
+    
+    // addUser('nickname', 'username', 'password', 'info')
     // console.log(await getUserbyUserName('username'))
     // console.log(await getAllPosts())
-    console.log(await getPostById("645585bf491d5c3d1ddbd387"))
+    console.log(await getAllUsers())
     // console.log(await User.find())
     // console.log(await getUserByUserNameAndPassword("username", "password"))
     // await User.deleteMany({nick_name: 'nickname'})
     console.log("\n" + "Finished")    
 }
 
-// testFunction()
+testFunction()
 
 
 module.exports = {

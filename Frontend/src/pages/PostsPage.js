@@ -64,7 +64,7 @@ const PostsPage = props => {
         <Link to="/addPost" className="button is-primary is-large">
             Post a new house
           </Link>
-      </div>
+      </div>``
       <div>
         <p>
           ~~~

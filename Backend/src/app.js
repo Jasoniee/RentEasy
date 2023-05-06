@@ -27,7 +27,6 @@ app.use(
   })
 );
 
-mongo.connect("mongodb://localhost/appdb")
 app.post("/api/signup", async (req, res) => {
     const existUser = await database.getUserbyUserName(req.body.user_name)
     if (existUser){
