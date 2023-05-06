@@ -49,3 +49,31 @@
 .label{
   color:#ADFF2F
 }
+/* Set the font family and size for the entire document */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.post {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.post h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.post p {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
