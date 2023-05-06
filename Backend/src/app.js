@@ -57,7 +57,7 @@ app.get("/api/user",(req,res)=>{
 });
 // post post
 app.post('/api/:user_name/post',async (req,res)=>{
-    const post = await database.addPost(req.params.user_name, req.body.start_date, req.body.end_date, req.body.price, req.body.description, req.body.email, req.body.city, req.body.state, req.body.zipCode)
+    const post = await database.addPost(req.params.user_name, req.body.start_date, req.body.end_date, req.body.price, req.body.description, req.body.email, req.body.location.city)
     console.log(post)
     if (post){
         res.status(200).send('Successfully posted')    
@@ -77,17 +77,29 @@ app.get("/api/logout", (req, res) => {
   req.session = null;
   res.status(200).send();
 });
-
+app.post('/api/posts',async(req,res)=>{
+    const posts = await database.getPostByLocation(req.body.city)
+        if (posts.length > 0){
+            res.status(200).send(posts)
+        }else{
+            res.status(400).send("No post found")
+        }
+})
 
 // return all the posts by location
 app.get('/api/posts', async (req,res)=>{
-    const posts = await database.getPostByLocation(req.body.city)
-    if (posts.length > 0){
-        res.status(200).send(posts)
-    }else{
-        res.status(400).send("No post found")
+
+        
+        const posts =await database.getAllPosts()
+        if (posts.length> 0){
+            res.status(200).send(posts)
+        }else{
+            res.status(400).send("No Post Found")
+        }
     }
-});
+    
+);
+
 
 //get user's info
 // app.get('/api/:user_name',async(req,res)=>{

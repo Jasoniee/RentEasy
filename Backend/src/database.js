@@ -110,8 +110,11 @@ const getAllUsers = async() => {
 const getAllPosts = async() => {
     return await Post.find()
 }
-
+const deleteAllPost = async() => {
+    await Post.deleteMany({});
+}
 // test function
+
 async function testFunction() {
     addUser('nickname', 'username', 'password', 'info')
     // console.log(await getUserbyUserName('username'))
@@ -136,5 +139,6 @@ module.exports = {
     deletePostById,
     getPostById,
     getAllPosts,
-    getAllUsers
+    getAllUsers,
+    deleteAllPost
 }
