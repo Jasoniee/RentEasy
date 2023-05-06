@@ -90,6 +90,8 @@ const getPostByLocation = async(city) => {
 const deletePostById = async(id) => {
     try {
         await User.deleteOne({_id: id})
+        const post = await Post.find({user_name: user_name})
+        return post
     } catch (e) {
         console.log(e.message)
     }
