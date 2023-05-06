@@ -87,7 +87,7 @@ const getPostByLocation = async(city) => {
 }
 
 // tz275
-const deletePost = async(id) => {
+const deletePostById = async(id) => {
     try {
         await User.deleteOne({_id: id})
     } catch (e) {
@@ -95,14 +95,32 @@ const deletePost = async(id) => {
     }
 }
 
+const getPostById = async(id) => {
+    try {
+        return await Post.findOne({_id: id})
+    }catch(e) {
+        console.log(e.mssage)
+    }
+}
+
+const getAllUsers = async() => {
+    return await User.find()
+}
+
+const getAllPosts = async() => {
+    return await Post.find()
+}
+
 // test function
 async function testFunction() {
-    console.log(addUser('nickname', 'username', 'password', 'info'))
-    console.log(await User.find())
-    console.log(await getUserByUserNameAndPassword("username", "password"))
-    await User.deleteMany({nick_name: 'nickname'})
-    console.log("\n" + "Finished")
-
+    addUser('nickname', 'username', 'password', 'info')
+    // console.log(await getUserbyUserName('username'))
+    // console.log(await getAllPosts())
+    console.log(await getPostById("645585bf491d5c3d1ddbd387"))
+    // console.log(await User.find())
+    // console.log(await getUserByUserNameAndPassword("username", "password"))
+    // await User.deleteMany({nick_name: 'nickname'})
+    console.log("\n" + "Finished")    
 }
 
 // testFunction()
@@ -115,7 +133,8 @@ module.exports = {
     getUserByUserNameAndPassword,
     getUserbyUserName,
     getPostByLocation,
-    deletePost,
-
-
+    deletePostById,
+    getPostById,
+    getAllPosts,
+    getAllUsers
 }

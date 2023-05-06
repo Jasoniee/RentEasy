@@ -48,29 +48,25 @@ app.post('/api/login', async (req,res)=>{
     }
 });
 
-// 发布个人post
+// post post
 app.post('/api/:user_name/post',async (req,res)=>{
-    const posts = await database.addPost(req.params.user_name, req.body.start_date, req.body.end_date, req.body.price, req.body.description, req.body.email, req.body.city, req.body.state, req.body.zipCode)
-    if (posts){
-        res.status(200).send('Successfully posted')    }else{
-            res.status(400).send('Please enter required information')
-        }
+    const post = await database.addPost(req.params.user_name, req.body.start_date, req.body.end_date, req.body.price, req.body.description, req.body.email, req.body.city, req.body.state, req.body.zipCode)
+    console.log(post)
+    if (post){
+        res.status(200).send('Successfully posted')    
+    } else {
+          res.status(400).send('Please enter required information')
+      } 
 });
 
-// 个人界面的所有posts
+// get all posts of the user
 app.get('/api/:user_name/posts', async (req, res) => {
-  const user = await database.getUserByUserName(req.params.user_name)
-  if (user) {
-    const posts = await database.getPostsByUserName(user.user_name)
-    res.status(200).send("success")
-    return posts
-  } else {
-    res.status(400).send("The user have no posts yet")
-  }
+  const posts = await database.getPostsByUserName(req.params.user_name)
+  res.status(200).send(posts)
 })
 
 
-// login 直接看到
+// return all the posts by location
 app.get('/api/posts', async (req,res)=>{
     const posts = await database.getPostByLocation(req.body.city)
     if (posts.length > 0){
@@ -80,21 +76,36 @@ app.get('/api/posts', async (req,res)=>{
     }
 });
 
-// 查看自己信息
-app.get('/api/:user_name',async(req,res)=>{
-    const user= await database.getUserbyUserName(req.params.user_name)
-    if(user){
-        res.status(200).send(user)
-    }else{
-        res.status(400).send('something went wrong')
-    }
-});
+// get user's info
+// app.get('/api/:user_name',async(req,res)=>{
+//     const user= await database.getUserbyUserName(req.params.user_name)
+//     if(user){
+//         res.status(200).send(user)
+//     }else{
+//         res.status(400).send('something went wrong hihi')
+//     }
+// });
 
-// 删除指定post
-app.delete('/api/:user_name/:')
+// delete post by the given id
+app.delete('/api/:user_name/:', async(req, res) => {
+  const post = database.getPostById(req.body.post_id);
+  if (post) {
+    await database.deletePostById(req.body.post_id)
+    res.status(200).send(post)
+  } else {
+    res.status(400).send("we can't find this post")
+  }
+  
+})
 
+// 2 tests
+app.get('/api/getAllUsers', async(req, res) => {
+  res.status(200).send(await database.getAllUsers())
+})
 
-
+app.get('/api/getAllPosts', async(req, res) => {
+  res.status(200).send(await database.getAllPosts())
+})
 
 
 module.exports = app;
