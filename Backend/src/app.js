@@ -31,7 +31,7 @@ mongo.connect("mongodb://localhost/appdb")
 app.post("/api/signup", async (req, res) => {
     const existUser = await database.getUserbyUserName(req.body.user_name)
     if (existUser){
-        res.status(400).send("The use name that you have entered has already exist");
+        res.status(400).send(existUser);
     }else{
         const user = database.addUser(req.body.nick_name,req.body.user_name,req.body.password,req.body.info)
         res.status(200).send("Sucessfully sign up!")
@@ -40,14 +40,21 @@ app.post("/api/signup", async (req, res) => {
 
 app.post('/api/login', async (req,res)=>{
     const user = await database.getUserByUserNameAndPassword(req.body.user_name,req.body.password)
-    if (user.length){
+    if (user){
         req.session.user_name=req.body.user_name
         res.status(200).send(user)
     }else{
         res.status(400).send("At least one of the information that you have entered is incorrect")
     }
 });
-
+app.get("/api/user",(req,res)=>{
+    if (!req.session.user_name){
+        res.status(402).send('missing')
+        return
+    }
+    const user_name = req.session.user_name
+    res.status(200).send({user_name:user_name})
+});
 // post post
 app.post('/api/:user_name/post',async (req,res)=>{
     const post = await database.addPost(req.params.user_name, req.body.start_date, req.body.end_date, req.body.price, req.body.description, req.body.email, req.body.city, req.body.state, req.body.zipCode)
@@ -82,7 +89,7 @@ app.get('/api/posts', async (req,res)=>{
     }
 });
 
-// get user's info
+//get user's info
 // app.get('/api/:user_name',async(req,res)=>{
 //     const user= await database.getUserbyUserName(req.params.user_name)
 //     if(user){
