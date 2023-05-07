@@ -51,7 +51,7 @@ const PostsPage = props => {
           <input name = "city" className='input' />
           <div><input type="submit" className='button is-primary'/></div>
         </form>
-        <Link to="/addPost" className="button is-primary is-large">
+        <Link to="/addPost" state={{ props }} className="button is-primary is-large">
             Post a new house
           </Link>
       </div>``

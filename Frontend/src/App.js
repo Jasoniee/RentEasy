@@ -71,11 +71,11 @@ const App = () => {
           />
           <Route
             path="/addPost"
-            element={(<AddPostPage user_name={user} />)}
+            element={(<AddPostPage user_name={user?.user_name ?? null} />)}
           />
            <Route
             path="/userHome"
-            element={(<UserHomePage user_name={user} />)}
+            element={(<UserHomePage user_name={user?.user_name ?? null} />)}
           />
           {/*<Route
             path="/instructor-home"
@@ -95,7 +95,7 @@ const App = () => {
             path="/posts"
             element={
               <PostsPage
-              user_name={user}
+              user_name={user?.user_name ?? null}
               />
             }
           />
