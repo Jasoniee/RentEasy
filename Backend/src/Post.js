@@ -1,6 +1,6 @@
 //const mongo = require('mongoose')
-import mongo from 'mongoose'
-const postSchema = new mongo.Schema({
+import mongoose from 'mongoose'
+const postSchema = new mongoose.Schema({
     user_name: {type: String, required: true},
     start_date: {type: Date, required: true},
     end_date: {type: Date, required: true},
@@ -15,4 +15,5 @@ const postSchema = new mongo.Schema({
     }
 })
 
-module.exports = mongo.model("Post", postSchema)
+const Post = mongoose.model("Post", postSchema)
+export default Post

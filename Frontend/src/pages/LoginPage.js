@@ -37,6 +37,11 @@ const LoginPage = props => {
       if(response.ok){
         console.log('successfully login')
         props.onLogin()
+        response.json().then(data=>{
+          props.onLogin(data)
+          //window.location.reload(false);
+          //navigate('/posts', {replace: true})
+        })
         navigate('/posts', {replace: true});
       }else{
         console.log('Login wrong')

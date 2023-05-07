@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 const PostsPage = props => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
-  
+  console.log(props)
   const handleSubmit = e => {
     e.preventDefault();
     fetch('/api/posts',{

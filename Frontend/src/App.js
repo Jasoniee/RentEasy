@@ -53,6 +53,7 @@ const App = () => {
         response.json().then(data=>{
           setIsSignedIn(true)
           setUser(data)
+          console.log(user)
         })
       }
     })
@@ -62,7 +63,7 @@ const App = () => {
     <div>
         
       <Router>
-        <Navbar isSignedIn={isSignedIn} username={user?.userId ?? null} />
+        <Navbar isSignedIn={isSignedIn} user_name={user?.userId ?? null} />
         <Routes>
         <Route
             path="/signup"
@@ -84,8 +85,9 @@ const App = () => {
             path="/login"
             element={
               <LoginPage
-                onLogin={() => {
+                onLogin={(user1) => {
                   setIsSignedIn(true);
+                  setUser(user1)
                 }}
               />
             }

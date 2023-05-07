@@ -4,9 +4,9 @@
 //const User = require("./User")
 //const Post = require("./Post")
 import mongoose from 'mongoose';
-import User from './User';
-import Post from './Post';
-mongo.connect("mongodb+srv://yangqingyun:yangqingyun@cluster0.jfjwpvr.mongodb.net/?retryWrites=true&w=majority")
+import User from './User.js';
+import Post from './Post.js';
+mongoose.connect("mongodb+srv://yangqingyun:yangqingyun@cluster0.jfjwpvr.mongodb.net/?retryWrites=true&w=majority")
 //mongo.connect()
 
 const addPost = async(user_name, start_date, end_date, price, description, email, city, state, zipCode)=>{
@@ -134,7 +134,20 @@ async function testFunction() {
 testFunction()
 
 
-module.exports = {
+// module.exports = {
+//     addUser,
+//     addPost,
+//     getPostsByUserName,
+//     getUserByUserNameAndPassword,
+//     getUserbyUserName,
+//     getPostByLocation,
+//     deletePostById,
+//     getPostById,
+//     getAllPosts,
+//     getAllUsers,
+//     deleteAllPost
+// }
+export default {
     addUser,
     addPost,
     getPostsByUserName,

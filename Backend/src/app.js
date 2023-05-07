@@ -138,4 +138,5 @@ app.get('/api/getAllUsers', async(req, res) => {
 
 
 
-module.exports = app;
+//module.exports = app;
+export default app
