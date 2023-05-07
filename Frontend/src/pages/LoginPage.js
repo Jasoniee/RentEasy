@@ -38,11 +38,12 @@ const LoginPage = props => {
         console.log('successfully login')
         props.onLogin()
         response.json().then(data=>{
-          props.onLogin(data)
+          props.onLogin()
           //window.location.reload(false);
           //navigate('/posts', {replace: true})
+          navigate('/posts', { user_name: data ,replace: true});
         })
-        navigate('/posts', {replace: true});
+
       }else{
         console.log('Login wrong')
       }

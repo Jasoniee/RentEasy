@@ -85,9 +85,8 @@ const App = () => {
             path="/login"
             element={
               <LoginPage
-                onLogin={(user1) => {
+                onLogin={() => {
                   setIsSignedIn(true);
-                  setUser(user1)
                 }}
               />
             }
@@ -96,9 +95,7 @@ const App = () => {
             path="/posts"
             element={
               <PostsPage
-                onLogin={() => {
-                  setIsSignedIn(true);
-                }}
+              user_name={user}
               />
             }
           />
