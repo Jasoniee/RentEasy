@@ -1,5 +1,5 @@
-const mongo = require('mongoose')
-
+//const mongo = require('mongoose')
+import mongo from 'mongoose'
 const userSchema = new mongo.Schema({
     nick_name: {type: String, required: true},
     user_name: {type: String, required: true},

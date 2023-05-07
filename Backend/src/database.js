@@ -1,9 +1,11 @@
 // npm run devStart
 
-const mongo = require('mongoose')
-const User = require("./User")
-const Post = require("./Post")
-
+//const mongo = require('mongoose')
+//const User = require("./User")
+//const Post = require("./Post")
+import mongoose from 'mongoose';
+import User from './User';
+import Post from './Post';
 mongo.connect("mongodb+srv://yangqingyun:yangqingyun@cluster0.jfjwpvr.mongodb.net/?retryWrites=true&w=majority")
 //mongo.connect()
 

@@ -1,5 +1,5 @@
-const app = require('./src/app.js');
-
+//const app = require('./src/app.js');
+import app from './src/app.js'
 
 const PORT = 8080;
 

@@ -1,19 +1,26 @@
 // import express from "express";
-const express = require("express");
-const morgan = require("morgan")
-const cors = require("cors")
-const cookieParser = require("cookie-parser")
-const cookieSession = require("cookie-session")
-const bodyParser = require("body-parser")
-const database = require("./database.js")
-const mongo = require("mongoose")
+// const express = require("express");
+// const morgan = require("morgan")
+// const cors = require("cors")
+// const cookieParser = require("cookie-parser")
+// const cookieSession = require("cookie-session")
+// const bodyParser = require("body-parser")
+// const database = require("./database.js")
+// //const mongo = require("mongoose")
+import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import cookieSession from 'cookie-session';
+import bodyParser from 'body-parser';
+import database from './database.js';
 
 const app = express();
 app.use(
   cookieSession({
     secret: "cookiesecret",
     signed:false,
-    name:'_session'
+    name:'__session'
   })
 );
 app.use(cookieParser());

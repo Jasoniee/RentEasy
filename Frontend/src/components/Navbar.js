@@ -43,20 +43,7 @@ const NavBar = props => {
             </div>
           </div>
         )}
-        {!props.isSignedIn && (
-          <div id="navbarMenu" className="navbar-menu">
-            <div className="navbar-end">
-              <div className="navbar-item">
-                <a href="/instructor-home" className="button is-primary">
-                  Sign up
-                </a>
-                <a href="/instructor-home" className="button is-primary">
-                  Sign In
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
+        
       </div>
     </nav>
   );
