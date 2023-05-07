@@ -89,7 +89,7 @@ const getPostByLocation = async(city) => {
 // tz275
 const deletePostById = async(id) => {
     try {
-        await User.deleteOne({_id: id})
+        await Post.deleteOne({_id: id})
         const post = await Post.find({user_name: user_name})
         return post
     } catch (e) {
@@ -118,7 +118,7 @@ const deleteAllPost = async() => {
 // test function
 
 async function testFunction() {
-    
+
     // addUser('nickname', 'username', 'password', 'info')
     // console.log(await getUserbyUserName('username'))
     // console.log(await getAllPosts())

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserHomePage = (props) => {
+  const navigate = useNavigate();
+
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     console.log("Get the posts on home page");
@@ -12,22 +15,20 @@ const UserHomePage = (props) => {
       }
     })
   }, []);
-  const handleClick = e => {
-    e.preventDefault();
-    fetch(`/api/${props.user_name.toString()}`,{
+  const handleClick = (id) => {
+    fetch(`/api/${props.user_name.user_name.toString()}/${id.toString()}`,{
       method:'DELETE',
       headers:{
         'Content-Type': 'application/json'
       },
-      body:JSON.stringify({city: e.target.city.value})
     }).then(response =>{
+      console.log(response)
       if(response.ok){
-        response.json().then(data=>{
-          console.log(data)
-          setPosts(data)
-          //window.location.reload(false);
-          //navigate('/posts', {replace: true})
-        })
+
+
+          //window.location.reload(true);
+          navigate('/posts', {replace: true})
+
       }else{
         console.log('sign up wrong')
       }
@@ -57,7 +58,7 @@ const UserHomePage = (props) => {
         <p><strong>City:</strong> {post.location.city}</p >
         <p><strong>State:</strong> {post.location.state}</p >
         <p><strong>Zip Code:</strong> {post.location.zipCode}</p >
-        <button onClick={handleClick}className="button"> Delete this post</button>
+        <button onClick={() => handleClick(post._id)}className="button"> Delete this post</button>
       </div>
     ))}
   </div>

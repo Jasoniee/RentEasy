@@ -111,11 +111,11 @@ app.get('/api/posts', async (req,res)=>{
 // });
 
 // delete post by the given id
-app.delete('/api/:user_name', async(req, res) => {
-  const post = database.getPostById(req.body.post_id);
+app.delete('/api/:user_name/:_id', async(req, res) => {
+  const post = database.getPostById(req.params._id);
   if (post) {
-    await database.deletePostById(req.body.post_id)
-    res.status(200).send(post)
+    const post1 = await database.deletePostById(req.params._id)
+    res.status(200).send(post1)
   } else {
     res.status(400).send("we can't find this post")
   }
