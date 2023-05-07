@@ -28,7 +28,7 @@ const AddPostPage = props => {
      * to go to the /instructor-home page
      */
     console.log(props)
-    const url = '/api/'+props.user_name+'/post'
+    const url = '/api/post'
     fetch(url,{
       method:'POST',
       headers:{

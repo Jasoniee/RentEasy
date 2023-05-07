@@ -19,7 +19,7 @@ const PostsPage = props => {
   console.log(props)
   const handleSubmit = e => {
     e.preventDefault();
-    fetch('/api/posts',{
+    fetch('/api/postsLocation',{
       method:'POST',
       headers:{
         'Content-Type': 'application/json'

@@ -55,17 +55,17 @@ app.post('/api/login', async (req,res)=>{
         res.status(400).send("At least one of the information that you have entered is incorrect")
     }
 });
-app.get("/api/user",(req,res)=>{
+app.get("/api/user",async (req,res)=>{
     if (!req.session.user_name){
         res.status(402).send('missing')
         return
     }
-    const user_name = req.session.user_name
-    res.status(200).send({user_name:user_name})
+    const user = await database.getUserbyUserName(req.session.user_name)
+    res.status(200).send(user)
 });
 // post post
-app.post('/api/:user_name/post',async (req,res)=>{
-    const post = await database.addPost(req.params.user_name, req.body.start_date, req.body.end_date, req.body.price, req.body.description, req.body.email, req.body.location.city)
+app.post('/api/post',async (req,res)=>{
+    const post = await database.addPost(req.session.user_name, req.body.start_date, req.body.end_date, req.body.price, req.body.description, req.body.email, req.body.location.city)
     console.log(post)
     if (post){
         res.status(200).send('Successfully posted')    
@@ -75,8 +75,8 @@ app.post('/api/:user_name/post',async (req,res)=>{
 });
 
 // get all posts of the user
-app.get('/api/:user_name/posts', async (req, res) => {
-  const posts = await database.getPostsByUserName(req.params.user_name)
+app.get('/api/postsId', async (req, res) => {
+  const posts = await database.getPostsByUserName(req.session.user_name)
   res.status(200).send(posts)
 })
 
@@ -85,9 +85,9 @@ app.get("/api/logout", (req, res) => {
   req.session = null;
   res.status(200).send();
 });
-app.post('/api/posts',async(req,res)=>{
+app.post('/api/postsLocation',async(req,res)=>{
     const posts = await database.getPostByLocation(req.body.city)
-        if (posts.length > 0){
+        if (posts){
             res.status(200).send(posts)
         }else{
             res.status(400).send("No post found")
@@ -120,7 +120,7 @@ app.get('/api/posts', async (req,res)=>{
 // });
 
 // delete post by the given id
-app.delete('/api/:user_name/:_id', async(req, res) => {
+app.delete('/api/:_id', async(req, res) => {
   const post = database.getPostById(req.params._id);
   if (post) {
     const post1 = await database.deletePostById(req.params._id)
