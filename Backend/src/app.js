@@ -12,6 +12,8 @@ const app = express();
 app.use(
   cookieSession({
     secret: "cookiesecret",
+    signed:false,
+    name:'_session'
   })
 );
 app.use(cookieParser());
